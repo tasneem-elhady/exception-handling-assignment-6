@@ -41,9 +41,6 @@ public class XMLFile {
                         NodeList list3 = element.getElementsByTagName("SHORT-NAME");
                         String ln = list2.item(0).getTextContent();
                         String sn = list3.item(0).getTextContent();
-                        System.out.println(UUID);
-                        System.out.println(ln);
-                        System.out.println(sn);
                         myFile.add(new Container(UUID, ln, sn));
                     }
                 }
