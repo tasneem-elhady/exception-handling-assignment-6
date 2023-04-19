@@ -10,13 +10,15 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.File;
 
-public class XMLFile {
-    public ArrayList<Container> myFile;
+public class ArxmlFile {
+    public ArrayList<Container> fileContent;
 
     public void readFile(String fileName) throws NotVaildAutosarFileException{
         String extension = fileName.substring(fileName.lastIndexOf("."));
+        //check extension
         if(!(extension.equals(".arxml")))
             throw new NotVaildAutosarFileException("Not an AUTOSAR file.");
+        //check if file is empty
         else if(new File(fileName).length() == 0)
             throw new EmptyAutosarFileException("The file is empty.");
         else {
@@ -31,7 +33,7 @@ public class XMLFile {
           
                 Document doc = db.parse(new File(fileName));
                 NodeList list1 = doc.getElementsByTagName("CONTAINER");
-                myFile = new ArrayList<Container>();
+                fileContent = new ArrayList<Container>();
                 for (int i = 0; i < list1.getLength(); i++) {
                     Node node = list1.item(i);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -41,10 +43,10 @@ public class XMLFile {
                         NodeList list3 = element.getElementsByTagName("SHORT-NAME");
                         String ln = list2.item(0).getTextContent();
                         String sn = list3.item(0).getTextContent();
-                        myFile.add(new Container(UUID, ln, sn));
+                        fileContent.add(new Container(UUID, ln, sn));
                     }
                 }
-                Collections.sort(myFile);
+                Collections.sort(fileContent);
             }
             catch (ParserConfigurationException | SAXException | IOException e) {
                 e.printStackTrace();

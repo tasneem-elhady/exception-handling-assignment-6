@@ -9,13 +9,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
-public class WriteXml {
+public class WriteArxml {
     
     public static void main(String[] args)
             throws ParserConfigurationException, TransformerException , NotVaildAutosarFileException {
-                XMLFile f = new XMLFile();
+                ArxmlFile f = new ArxmlFile();
                 String fileName = args[0];
-                    f.readFile(fileName);
+                f.readFile(fileName);
                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
                 // root elements
@@ -23,14 +23,14 @@ public class WriteXml {
                 Element rootElement = doc.createElement("AUTOSAR");
                 doc.appendChild(rootElement);
 
-                // add xml elements
-                for (int i = 0; i < f.myFile.size(); i++)
+                // add Arxml elements
+                for (int i = 0; i < f.fileContent.size(); i++)
                 {
-                    Container c = f.myFile.get(i);
+                    Container c = f.fileContent.get(i);
                     Element CONTAINER = doc.createElement("CONTAINER");
                     // add CONTAINER to root
                     rootElement.appendChild(CONTAINER);
-                    // add xml attribute
+                    // add Arxml attribute
                     CONTAINER.setAttribute("UUID", c.UUID);
 
                     Element SHORT_N = doc.createElement("SHORT-NAME");
