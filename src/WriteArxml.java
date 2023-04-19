@@ -1,13 +1,11 @@
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import java.io.File;
 public class WriteArxml {
     
@@ -18,7 +16,7 @@ public class WriteArxml {
                 f.readFile(fileName);
                 DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-                // root elements
+                // root element
                 Document doc = docBuilder.newDocument();
                 Element rootElement = doc.createElement("AUTOSAR");
                 doc.appendChild(rootElement);
@@ -44,7 +42,7 @@ public class WriteArxml {
                     writeXml(doc, newfile ); 
             }
           
-            // write doc to output stream
+            // write doc to file
             private static void writeXml(Document doc,
                                          File f)
                     throws TransformerException {
@@ -52,7 +50,7 @@ public class WriteArxml {
                 TransformerFactory transformerFactory = TransformerFactory.newInstance();
                 Transformer transformer = transformerFactory.newTransformer();
           
-                // pretty print
+                //adjust the format
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
           
                 DOMSource source = new DOMSource(doc);

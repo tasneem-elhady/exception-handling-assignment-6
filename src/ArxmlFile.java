@@ -28,12 +28,14 @@ public class ArxmlFile {
             // process XML securely, avoid attacks like XML External Entities (XXE)
                 dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
-            // parse ARXML file
+            
                 DocumentBuilder db = dbf.newDocumentBuilder();
-          
+                // parse ARXML file
                 Document doc = db.parse(new File(fileName));
+                //create nodelist of container element
                 NodeList list1 = doc.getElementsByTagName("CONTAINER");
                 fileContent = new ArrayList<Container>();
+                //loop through the nodelist to get the attributes and elements below it
                 for (int i = 0; i < list1.getLength(); i++) {
                     Node node = list1.item(i);
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -46,6 +48,7 @@ public class ArxmlFile {
                         fileContent.add(new Container(UUID, ln, sn));
                     }
                 }
+                //sort the containers alphabetically according to there SHORT_NAME
                 Collections.sort(fileContent);
             }
             catch (ParserConfigurationException | SAXException | IOException e) {
